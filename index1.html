@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #F7FAFC;
+            --text: #0F172A;
+            --primary: #0EA5A6;
+            --secondary: #60A5FA;
+            --accent: #FF6B3D;
+            --card: #FFFFFF;
+            --border: #E5E7EB;
+            --shadow: 0 10px 30px rgba(0,0,0,.12);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0c8a8b 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 12px rgba(14, 165, 166, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header {
+            flex: 1;
+            
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+            justify-content: flex-end;
+            align-items: center;
+            border: 1px solid black;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 200ms ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    flex: 1;
+    align-items: stretch; /* Important pour étirer les colonnes */
+}
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: row;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: #64748B;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%; /* Prend toute la hauteur du container */
+}
+
+        .carte {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(96, 165, 250, 0.3);
+    transition: all 300ms ease;
+    flex: 1; /* Étire la carte pour remplir l'espace disponible */
+}
+
+        .carte:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(96, 165, 250, 0.4);
+        }
+
+        .carte h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .carte p {
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        footer div {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        footer a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 200ms ease;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            header {
+                flex-direction: column;
+                align-items:center;
+                padding: 1rem;
+            }
+            header h2 {
+                color: #60A5FA;
+                display: flex ;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .card, .carte {
+                padding: 1.5rem;
+            }
+
+            footer div {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+          /* Cache le modal par défaut */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .autreModal {
+            
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        
+        }
+
+        /* Contenu du modal */
+        .modal-content {
+            background: white;
+            width: 300px;
+            padding: 20px;
+            margin: 100px auto;
+            border-radius: 10px;
+        }
+
+        /* Bouton fermer */
+        .close {
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* Affiche le modal quand il a la classe "show" */
+        .modal.show {
+            display: block;
+        }
+        /* Menu Burger */
+.menu-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 200ms ease;
+}
+
+.menu-burger:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.menu-burger span {
+    width: 28px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation quand le menu est ouvert */
+.menu-burger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-burger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.menu-burger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.cardAction {
+    display: flex;
+    flex-direction: column;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            height: auto;
+            width: 200px;
+            gap: 10px;
+            margin: 10px;
+           
+        }
+
+        .cardAction:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .cardAction h1 h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .cardAction p {
+            color: #64748B;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+/* Navigation responsive */
+/* Navigation responsive */
+@media (max-width: 968px) {
+    .menu-burger {
+        display: flex;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height:auto;
+        background: linear-gradient(135deg, var(--primary) 0%, #0c8a8b 100%);
+        flex-direction: column;
+        padding: 2rem;  /* ✅ Réduit de 5rem à 2rem */
+        gap: 1.5rem;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+        transition: right 400ms cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
+        border: none;
+        align-items: flex-start;
+        justify-content: flex-start;  /* ✅ Ajouté pour aligner en haut */
+    }
+
+    nav.active {
+        right: 0;
+    }
+
+    nav a {
+        width: 100%;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateX(5px);
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <h2>Titre</h2>
+        </div>
+        <div class="header">
+             <div class="menu-burger" id="menuBurger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+    
+            <nav id="navMenu">
+                <a href="#">Accueil</a>
+                <a href="#">Inscription</a>
+                <a href="#">Connexion</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main>
+        
+
+            <div class="card">
+                 <div class="cardAction">
+                <h1>Crypto</h1>
+                <select name="crypto" id="crypto">
+                <option value="BTCUSDT">Bitcoin(BTC)</option>
+                <option value="ETHUSDT" >Ethereum</option>
+                <option value="SOLUSDT">Solana</option>
+                <option value="BNBUSDT">BNB</option>
+            </select>
+                <h3 id="afficheCrypto"></h3>
+                 <p id="affiche">...</p>
+            </div>
+
+             <div class="cardAction">
+                <h1>Action Us</h1>
+                <select name="action" id="action">
+                    <option value=""></option>
+                </select>
+                <h3 id="afficheAction"></h3>
+                <p id="affiche"></p>
+            </div>
+
+               <div class="cardAction">
+                <h1>Forex</h1>
+                <select name="forex" id="pairFx">
+                    <option value="eurusd">EUR/USD</option>
+                    <option value="gbpusd">GBP/USD</option>
+                    <option value="gbpeur">GBP/EUR</option>
+                </select>
+                <h3 id="TauxChange"></h3>
+                <p id="afficheForex">...</p>
+            </div>
+            </div>
+        </main>
+          <!-- Bouton pour ouvrir -->
+    <button id="openBtn">Ouvrir le Modal</button>
+
+    <!-- Le Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <span class="close" id="closeBtn">&times;</span>
+            <h2>Mon Modal</h2>
+            <p>Voici le contenu du modal !</p>
+        </div>
+    </div>
+    <button id="btn">Ouvrir l autre modal</button>
+
+    <div class="modal" id="monModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>mon modal</h2>
+            <p>contenu</p>
+        </div>
+        
+    </div>
+        <aside>
+            <div class="carte">
+                <h3>Ma card 11</h3>
+                <p>Un petit texte descriptif pour la sidebar.</p>
+            </div>
+        </aside>
+    </div>
+    
+    <footer>
+        <div>
+            <a href="#">Politique de confidentialité</a>
+            <a href="#">Mentions légales</a>
+        </div>
+    </footer>
+    <script>
+        const affiche = document.getElementById("affiche");
+        const cryptoSelect =document.getElementById('crypto') ;
+        const afficheCrypto = document.getElementById('afficheCrypto');
+        const TauxChange =document.getElementById('TauxChange') ;
+        const pairFx = document.getElementById('pairFx') ;
+        const afficheForex = document.getElementById('afficheForex') ;
+
+        async function prixActionUs(select) {
+            
+        }
+
+        async function prixCrypto(symbol){
+            afficheCrypto.textContent =cryptoSelect.value ;
+            try{
+            const response = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
+
+            if(!response.ok ){
+                throw new Error(`HTTP ${response.status}`  ) ;
+
+            }
+            const data = await response.json();
+            const prix = parseFloat(data.price).toFixed(3);
+            console.log(prix);  
+            affiche.textContent = `${prix} USD` ;     
+            
+        }
+        catch(error) {
+            console.log('erreur');
+        }
+    }
+
+        setInterval(()=> prixCrypto(cryptoSelect.value),15000);
+        
+        cryptoSelect.addEventListener('change', ()=>{
+            prixCrypto(cryptoSelect.value) ;
+        });
+     
+         const pairs = {
+                eurusd: { base: "EUR", quote: "USD" },
+                gbpusd: { base: "GBP", quote: "USD" },
+                gbpeur: { base: "GBP", quote: "EUR" },
+                        };
+        async function prixForex(symbol) {
+            const key = pairFx.value ;
+            const base = pairs[key].base ; 
+            const quote = pairs[key].quote ;
+            TauxChange.textContent = `${base}/${quote}` ;
+            
+             console.log(base) ;
+            console.log(quote);
+
+
+            try{
+                const response = await fetch(`https://api.frankfurter.dev/v1/latest?base=${base}&symbols=${quote}`);
+                if(!response.ok){
+                    throw new Error('HTTP ' + response.status) ;
+            
+                }
+                const data = await response.json() ;
+                    const prix = data.rates[quote] ;
+                    afficheForex.textContent = `${Number(prix).toFixed(3)} ${quote} ` ;
+                    
+            }
+            catch(error){
+                console.log('erreur');
+
+            }
+            
+        }
+                 
+        setInterval(()=> prixForex(pairFx.value),10000);
+           pairFx.addEventListener('change', ()=>{
+            prixForex(pairFx.value) ;
+        });
+        const openBtn = document.getElementById('openBtn');
+        const closeBtn = document.getElementById('closeBtn') ;
+        const modal = document.getElementById('myModal') ;
+
+        openBtn.onclick = function(){
+            modal.classList.add('show') ;
+        }
+        closeBtn.onclick = function(){
+            modal.classList.remove('show') ;
+        }
+
+        const btn = document.getElementById('btn');
+        const monModal = document.getElementById('monModal') ;
+        const closeModal = document.getElementById('closeModal') ;
+
+        btn.onclick = function(){
+            monModal.classList.add('show');
+        }
+        closeModal.onclick = function(){
+            monModal.classList.remove('show') ;
+        }
+        const menuBurger = document.getElementById('menuBurger');
+const navMenu = document.getElementById('navMenu');
+
+menuBurger.addEventListener('click', () => {
+    menuBurger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Ferme le menu en cliquant sur un lien
+navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        menuBurger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+// Ferme le menu en cliquant en dehors
+document.addEventListener('click', (e) => {
+    if (!menuBurger.contains(e.target) && !navMenu.contains(e.target)) {
+        menuBurger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+});
+    </script>
+</body>
+</html>
